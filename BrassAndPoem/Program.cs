@@ -57,7 +57,7 @@ void DisplayMenu()
             case "b":
                 Console.Clear();
                 Console.WriteLine("Delete Menu");
-                // DeleteProduct();
+                DeleteProduct(products, productTypes);
                 continue;
             case "c":
                 Console.Clear();
@@ -93,7 +93,7 @@ void DisplayAllProducts(List<Product> products, List<ProductType> productTypes)
         foreach (Product product in products)
         {
             // Console.WriteLine($"  {product.Name} - {productTypes[product.ProductTypeId - 1].Title}");
-            Console.WriteLine($" {++counter}.) {product.Name} -- {product.Price}");
+            Console.WriteLine($" {++counter}.) {product.Name} -- {product.Price} - {productTypes[product.ProductTypeId - 1].Title}");
         }
         break;
     }
@@ -101,7 +101,38 @@ void DisplayAllProducts(List<Product> products, List<ProductType> productTypes)
 
 void DeleteProduct(List<Product> products, List<ProductType> productTypes)
 {
-    throw new NotImplementedException();
+    // throw new NotImplementedException();
+    while (true)
+    {
+        try
+        {
+            Console.WriteLine("Please enter the number that corresponds to the product you are trying to remove: ");
+            int counter = 0;
+            foreach (Product p in products)
+            {
+                Console.WriteLine($"{++counter}. {p.Name}");
+            }
+            int response = Convert.ToInt32(Console.ReadLine());
+
+            if (response < 1 || response > products.Count)
+            {
+                Console.WriteLine("Invalid entry. Please try again.");
+                continue;
+            }
+            // If selection is valid, remove it from the list.
+            // Product chosenProduct = products[response - 1];
+            Product chosenProduct = products.Find(p => p.Name == products[response - 1].Name);
+            products.Remove(chosenProduct);
+            Console.WriteLine("Removed the product. Here is the updated list:");
+            DisplayAllProducts(products, productTypes);
+            break; //
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Invalid selection. Please pick a number from the list. ");
+        }
+    }
+    DisplayMenu();
 }
 
 void AddProduct(List<Product> products, List<ProductType> productTypes)
