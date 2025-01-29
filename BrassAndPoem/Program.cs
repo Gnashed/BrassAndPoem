@@ -62,7 +62,7 @@ void DisplayMenu()
             case "c":
                 Console.Clear();
                 Console.WriteLine("Add a New Product Menu ");
-                // AddProduct();
+                AddProduct(products, productTypes);
                 continue;
             case "d":
                 Console.Clear();
@@ -84,22 +84,22 @@ void DisplayMenu()
 
 // ===================================== CRUD METHODS FOR MENU =====================================
 
-void DisplayAllProducts(List<Product> products, List<ProductType> productTypes)
+void DisplayAllProducts(List<Product> productsList, List<ProductType> productTypesList)
 {
     // throw new NotImplementedException();
     while (true)
     {
         int counter = 0;
-        foreach (Product product in products)
+        foreach (Product product in productsList)
         {
             // Console.WriteLine($"  {product.Name} - {productTypes[product.ProductTypeId - 1].Title}");
-            Console.WriteLine($" {++counter}.) {product.Name} -- {product.Price} - {productTypes[product.ProductTypeId - 1].Title}");
+            Console.WriteLine($" {++counter}.) {product.Name} -- {product.Price} - {productTypesList[product.ProductTypeId - 1].Title}");
         }
         break;
     }
 }
 
-void DeleteProduct(List<Product> products, List<ProductType> productTypes)
+void DeleteProduct(List<Product> productsList, List<ProductType> productTypesList)
 {
     // throw new NotImplementedException();
     while (true)
@@ -108,24 +108,24 @@ void DeleteProduct(List<Product> products, List<ProductType> productTypes)
         {
             Console.WriteLine("Please enter the number that corresponds to the product you are trying to remove: ");
             int counter = 0;
-            foreach (Product p in products)
+            foreach (Product p in productsList)
             {
                 Console.WriteLine($"{++counter}. {p.Name}");
             }
             int response = Convert.ToInt32(Console.ReadLine());
 
-            if (response < 1 || response > products.Count)
+            if (response < 1 || response > productsList.Count)
             {
                 Console.WriteLine("Invalid entry. Please try again.");
                 continue;
             }
             // If selection is valid, remove it from the list.
             // Product chosenProduct = products[response - 1];
-            Product chosenProduct = products.Find(p => p.Name == products[response - 1].Name);
-            products.Remove(chosenProduct);
+            Product chosenProduct = products.Find(p => p.Name == productsList[response - 1].Name);
+            productsList.Remove(chosenProduct);
             Console.WriteLine("Removed the product. Here is the updated list:");
-            DisplayAllProducts(products, productTypes);
-            break; //
+            DisplayAllProducts(productsList, productTypesList);
+            break;
         }
         catch (FormatException)
         {
@@ -135,9 +135,55 @@ void DeleteProduct(List<Product> products, List<ProductType> productTypes)
     DisplayMenu();
 }
 
-void AddProduct(List<Product> products, List<ProductType> productTypes)
+void AddProduct(List<Product> productsList, List<ProductType> productTypesList)
 {
-    throw new NotImplementedException();
+    // throw new NotImplementedException();
+    while (true)
+    {
+        Console.WriteLine("Please enter the following information about the product:");
+        
+        Console.Write("Product name: ");
+        string productName = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(productName))
+        {
+            Console.WriteLine("Please enter a valid product name.");
+            continue;
+        }
+        
+        Console.Write("How much should this item cost? Enter a dollar value. Ex. 29.99: ");
+        if (!decimal.TryParse(Console.ReadLine(), out var productPrice))
+        {
+            Console.WriteLine("Please enter a valid product type.");
+            continue;
+        }
+        
+        Console.Write("What type of product is it? ex. poem: ");
+        string productTypeName = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(productTypeName))
+        {
+            Console.WriteLine("Please enter a valid product name.");
+            continue;
+        }
+        
+        // Process information.
+        Console.WriteLine("Test variables: ");
+        Console.WriteLine($"{(nameof(productName))}: {productName}");
+        Console.WriteLine($"{(nameof(productPrice))}: {productPrice}");
+        
+        // Payloads
+        ProductType payloadType = new ProductType(productTypeName, (productTypesList.Count + 1));
+        Product payload =
+            new Product(productName, productPrice, payloadType.Id);
+
+        // Create new records.
+        productTypesList.Add(payloadType);
+        productsList.Add(payload);
+        
+        // Confirmation.
+        Console.WriteLine($"{payload.Name} was successfully added to the inventory. with an index number of " +
+                          $"{payload.ProductTypeId}");
+        break;
+    }
 }
 
 void UpdateProduct(List<Product> products, List<ProductType> productTypes)
