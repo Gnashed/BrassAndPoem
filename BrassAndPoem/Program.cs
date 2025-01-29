@@ -23,7 +23,7 @@ List<Product> products = new List<Product>()
 //create a "productTypes" variable here with a List of ProductTypes, and add "Brass" and "Poem" types to the List. 
 List<ProductType> productTypes = new List<ProductType>()
 {
-    new ProductType("Brass", 1),
+    new ProductType("Brass Instrument", 1),
     new ProductType("Poem", 2),
 };
 
@@ -34,14 +34,14 @@ void DisplayMenu()
     // throw new NotImplementedException();
     while (true)
     {
-        Console.WriteLine("============================================================================================");
+        Console.WriteLine("==========================================================================================");
         Console.WriteLine();
         Console.WriteLine("Please choose one of the following options: ");
         Console.WriteLine("a: Display all products");
         Console.WriteLine("b: Delete a product");
         Console.WriteLine("c: Add a new product");
         Console.WriteLine("d: Update product properties");
-        Console.WriteLine("q: Exit");
+        Console.WriteLine("e: Exit");
         Console.WriteLine();
         string response = Console.ReadLine()?.Trim();
 
@@ -51,22 +51,22 @@ void DisplayMenu()
             case "a":
                 Console.Clear();
                 Console.WriteLine("All Products Menu");
-                DisplayAllProducts();
+                DisplayAllProducts(products, productTypes);
                 continue;
             case "b":
                 Console.Clear();
                 Console.WriteLine("Delete Menu");
-                DeleteProduct();
+                // DeleteProduct();
                 continue;
             case "c":
                 Console.Clear();
                 Console.WriteLine("Add a New Product Menu ");
-                AddProduct();
+                // AddProduct();
                 continue;
             case "d":
                 Console.Clear();
                 Console.WriteLine("Update Product Properties Menu");
-                UpdateProduct();
+                // UpdateProduct();
                 continue;
             case "e":
                 Console.WriteLine("Terminating program...");
@@ -85,7 +85,15 @@ void DisplayMenu()
 
 void DisplayAllProducts(List<Product> products, List<ProductType> productTypes)
 {
-    throw new NotImplementedException();
+    // throw new NotImplementedException();
+    while (true)
+    {
+        foreach (Product product in products)
+        {
+            Console.WriteLine($"  {product.Name} - {productTypes[product.ProductTypeId - 1].Title}");
+        }
+        break;
+    }
 }
 
 void DeleteProduct(List<Product> products, List<ProductType> productTypes)
