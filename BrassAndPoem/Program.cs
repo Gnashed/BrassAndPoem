@@ -1,15 +1,31 @@
 ﻿
 using BrassAndPoem;
 
-//create a "products" variable here to include at least five Product instances. Give them appropriate ProductTypeIds.
-
-
-//create a "productTypes" variable here with a List of ProductTypes, and add "Brass" and "Poem" types to the List. 
-
-
 // ===================================== DATA SOURCE =====================================
 
+//create a "products" variable here to include at least five Product instances. Give them appropriate ProductTypeIds.
+List<Product> products = new List<Product>()
+{
+   new Product("The Tears that Taught Me", 16.99M, 2),
+   new Product("Milk and Honey", 7.83M, 2),
+   new Product("Save Me an Orange", 13.01M, 2),
+   new Product("Twenty Something", 14.60M, 2),
+   new Product("Glory Bb Trumpet", 109.99M, 1),
+   new Product("Jean Paul TR-330 Trumpet", 249.99M, 1),
+   new Product("Alto Trombone Bb", 149.99M, 1),
+   new Product("B Flat 4 Key Single Row French Horn", 369.00M, 1),
+   new Product("Double French Horn", 560.00M, 1),
+   new Product("Stagg WS - BT235 Tuba with case", 1_383.48M, 1),
+   new Product("King Tuba Straight Bell", 989.00M, 1),
+   new Product("YAMAHA YBB-103 Tuba", 1_200.00M, 1),
+};
 
+//create a "productTypes" variable here with a List of ProductTypes, and add "Brass" and "Poem" types to the List. 
+List<ProductType> productTypes = new List<ProductType>()
+{
+    new ProductType("Brass", 1),
+    new ProductType("Poem", 2),
+};
 
 // =============================================== MENU ===============================================
 
@@ -89,7 +105,7 @@ void UpdateProduct(List<Product> products, List<ProductType> productTypes)
 
 // ==================== STARTUP GREETING AND PROMPT USER TO MAKE A SELECTION IN THE MENU. ====================
 string greeting = "Welcome to Brass & Poem Shop! We offer the best selection of poetry books and " +
-                  "brass musical instruments online.";
+                  "brass musical instruments on the web!";
 Console.WriteLine();
 Console.WriteLine();
 Console.WriteLine("============================================================================================");
