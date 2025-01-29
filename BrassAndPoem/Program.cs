@@ -34,7 +34,8 @@ void DisplayMenu()
     // throw new NotImplementedException();
     while (true)
     {
-        Console.WriteLine("==========================================================================================");
+        Console.WriteLine("============================================================================================" +
+                          "");
         Console.WriteLine();
         Console.WriteLine("Please choose one of the following options: ");
         Console.WriteLine("a: Display all products");
@@ -88,9 +89,11 @@ void DisplayAllProducts(List<Product> products, List<ProductType> productTypes)
     // throw new NotImplementedException();
     while (true)
     {
+        int counter = 0;
         foreach (Product product in products)
         {
-            Console.WriteLine($"  {product.Name} - {productTypes[product.ProductTypeId - 1].Title}");
+            // Console.WriteLine($"  {product.Name} - {productTypes[product.ProductTypeId - 1].Title}");
+            Console.WriteLine($" {++counter}.) {product.Name} -- {product.Price}");
         }
         break;
     }
@@ -111,9 +114,9 @@ void UpdateProduct(List<Product> products, List<ProductType> productTypes)
     throw new NotImplementedException();
 }
 
-// ==================== STARTUP GREETING AND PROMPT USER TO MAKE A SELECTION IN THE MENU. ====================
+// ========================= STARTUP GREETING AND PROMPT USER TO MAKE A SELECTION IN THE MENU. =========================
 string greeting = "Welcome to Brass & Poem Shop! We offer the best selection of poetry books and " +
-                  "brass musical instruments on the web!";
+                  "brass musical\ninstruments on the web!";
 Console.WriteLine();
 Console.WriteLine();
 Console.WriteLine("============================================================================================");
