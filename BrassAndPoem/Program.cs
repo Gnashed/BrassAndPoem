@@ -245,11 +245,15 @@ void UpdateProduct(List<Product> productsList, List<ProductType> productTypesLis
                     Console.WriteLine("Invalid entry. Please enter a name for the product type. ex. guitar: ");
                     continue;
                 }
-                // Update record's product type.
                 
                 // Check if name exists in database.
                 ProductType existingTitle = productTypesList.FirstOrDefault(p => p.Title.ToLower() == newProductType.ToLower());
-                if (existingTitle?.Title == null)
+                if (existingTitle.Title == newProductType)
+                {
+                    Console.WriteLine($"The product type '{newProductType}' already exists.");
+                    productsList[counter].ProductTypeId = existingTitle.Id;
+                }
+                else
                 {
                     // Create a new instance of a ProductType.
                     ProductType newProductTypePayload = new ProductType(newProductType, productTypesList.Count + 1);
