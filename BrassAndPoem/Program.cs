@@ -246,8 +246,23 @@ void UpdateProduct(List<Product> productsList, List<ProductType> productTypesLis
                     continue;
                 }
                 // Update record's product type.
-                Console.WriteLine($"{nameof(newProductType)}: {newProductType}");
-                productTypesList[counter].Title = newProductType;
+                
+                // Check if name exists in database.
+                ProductType existingTitle = productTypesList.FirstOrDefault(p => p.Title.ToLower() == newProductType.ToLower());
+                if (existingTitle?.Title == null)
+                {
+                    // Create a new instance of a ProductType.
+                    ProductType newProductTypePayload = new ProductType(newProductType, productTypesList.Count + 1);
+                    
+                    // Add to productTypeList
+                    productTypesList.Add(newProductTypePayload);
+                    
+                    // Update product id
+                    productsList[counter].ProductTypeId = newProductTypePayload.Id;
+                    
+                    // Console.WriteLine($"Logging new product type: {newProductTypePayload.Title}");
+                    // Console.WriteLine($"Logging new product type id: {newProductTypePayload.Id}");
+                }
                 break;
             case "3":
                 Console.WriteLine($"Enter a new product price: ");
